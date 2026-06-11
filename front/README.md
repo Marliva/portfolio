@@ -19,10 +19,11 @@ Personal full-stack web developer portfolio, designed and developed from scratch
 - MySQL
 
 ## Project structure
+```
 portfolio/
 ├── front/     → React application (Vite)
 └── back/      → Laravel API
-
+```
 ## Features
 
 - Project showcase with 3D tilt effect on hover
