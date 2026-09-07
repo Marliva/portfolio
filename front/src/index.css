@@ -54,12 +54,6 @@
   --radius: 0.625rem;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
@@ -68,6 +62,9 @@ body {
 
 @layer base {
   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     @apply border-border outline-ring/50;
   }
   body {
