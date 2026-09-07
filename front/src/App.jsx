@@ -2,6 +2,7 @@ import Navbar from './components/layout/Navbar'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Stack from './components/sections/Stack'
+import Projects from './components/sections/Projects'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Hero />
       <About />
       <Stack />
+      <Projects />
     </div>
   )
 }
