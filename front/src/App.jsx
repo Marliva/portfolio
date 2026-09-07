@@ -4,6 +4,7 @@ import About from './components/sections/About'
 import Stack from './components/sections/Stack'
 import Projects from './components/sections/Projects'
 import Contact from './components/sections/Contact'
+import Footer from './components/layout/Footer'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Stack />
       <Projects />
       <Contact />
+      <Footer />
     </div>
   )
 }
