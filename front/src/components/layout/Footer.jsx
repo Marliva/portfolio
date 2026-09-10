@@ -6,9 +6,9 @@ function Footer() {
         <span className="font-heading font-bold text-[var(--color-accent)]">C.</span>
 
         <ul className="flex gap-8 list-none">
-          <li><a href="#about" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">About</a></li>
+          <li><a href="#about" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">À propos</a></li>
           <li><a href="#stack" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">Stack</a></li>
-          <li><a href="#projects" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">Projects</a></li>
+          <li><a href="#projects" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">Projets</a></li>
           <li><a href="#contact" className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm">Contact</a></li>
         </ul>
 
