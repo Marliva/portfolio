@@ -9,16 +9,24 @@ use App\Http\Controllers\Api\SkillController;
 use Illuminate\Support\Facades\Route;
 
 // Routes publiques
-Route::post('/contact', [ContactController::class, 'store']);
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/skills', [SkillController::class, 'index']);
-Route::get('/about', [AboutController::class, 'index']);
+Route::middleware('throttle:api')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/skills', [SkillController::class, 'index']);
+    Route::get('/about', [AboutController::class, 'index']);
+});
+
+// Formulaire de contact
+Route::middleware('throttle:contact')->group(function () {
+    Route::post('/contact', [ContactController::class, 'store']);
+});
 
 // Authentification
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('throttle:login')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 // Routes protégées par Sanctum
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
 
     // Déconnexion
     Route::post('/logout', [AuthController::class, 'logout']);
