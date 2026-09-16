@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { projectsData } from '@/data/projects'
+import { getProjects } from '@/api/projects'
 import ProjectCard from '@/components/ui/ProjectCard'
 
 const fadeUp = {
@@ -12,6 +13,25 @@ const fadeUp = {
 }
 
 function Projects() {
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const response = await getProjects()
+        setProjects(response.data)
+      } catch {
+        setError('Impossible de charger les projets.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -27,21 +47,31 @@ function Projects() {
           Projets
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projectsData.map((project, i) => (
-            <motion.div
-              key={project.id}
-              custom={i + 1}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="h-full"
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
-        </div>
+        {loading && (
+          <p className="text-[var(--color-text-secondary)]">Chargement des projets...</p>
+        )}
+
+        {error && (
+          <p className="text-red-500">{error}</p>
+        )}
+
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project.id}
+                custom={i + 1}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                className="h-full"
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
