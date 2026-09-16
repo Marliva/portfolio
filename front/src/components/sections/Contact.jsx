@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import GithubIcon from '@/components/ui/icons/GithubIcon'
 import LinkedinIcon from '@/components/ui/icons/LinkedinIcon'
+import { sendMessage } from '@/api/contact'
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -24,7 +25,7 @@ function sanitizeInput(value) {
 function Contact() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
-    function onSubmit(data) {
+    async function onSubmit(data) {
         if (data.honeypot) return
 
         const sanitizedData = {
@@ -33,9 +34,13 @@ function Contact() {
             message: sanitizeInput(data.message),
         }
 
-        // TODO: envoyer sanitizedData à l'API Laravel via Axios
-        console.log('Données prêtes à envoyer :', sanitizedData)
-        reset()
+        try {
+            await sendMessage(sanitizedData)
+            reset()
+            alert('Votre message a bien été envoyé.')
+        } catch {
+            alert('Une erreur est survenue. Veuillez réessayer.')
+        }
     }
 
     return (
