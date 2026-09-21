@@ -6,25 +6,34 @@ function Messages() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  async function fetchMessages() {
+  async function refreshMessages() {
     try {
       const response = await getMessages()
       setMessages(response.data)
     } catch {
       setError('Impossible de charger les messages.')
-    } finally {
-      setLoading(false)
     }
   }
 
   useEffect(() => {
+    async function fetchMessages() {
+      try {
+        const response = await getMessages()
+        setMessages(response.data)
+      } catch {
+        setError('Impossible de charger les messages.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
     fetchMessages()
   }, [])
 
   async function handleMarkAsRead(id) {
     try {
       await markAsRead(id)
-      await fetchMessages()
+      await refreshMessages()
     } catch {
       alert('Une erreur est survenue.')
     }
@@ -34,7 +43,7 @@ function Messages() {
     if (!confirm('Supprimer ce message ?')) return
     try {
       await deleteMessage(id)
-      await fetchMessages()
+      await refreshMessages()
     } catch {
       alert('Une erreur est survenue.')
     }
