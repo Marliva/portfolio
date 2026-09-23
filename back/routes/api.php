@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\SkillController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\StatsController;
 
 // Routes publiques
 Route::middleware('throttle:api')->group(function () {
@@ -30,6 +31,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
 
     // Déconnexion
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/stats', [StatsController::class, 'index']);
 
     // Messages
     Route::get('/messages', [MessageController::class, 'index']);
